@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MessageEvent;
 use Illuminate\Http\Request;
 
 class ChatController extends Controller
@@ -14,6 +15,11 @@ class ChatController extends Controller
      */
     public function message(Request $request): array
     {
+        event(new MessageEvent(
+            $request->input("username"),
+            $request->input("message")
+        ));
+
         return [];
     }
 }
